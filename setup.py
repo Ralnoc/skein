@@ -80,12 +80,11 @@ class build_java(Command):
         # This will be picked up as package_data later
         self.mkpath(SKEIN_JAVA_DIR)
         try:
-            code = subprocess.call(['mvn', '-f', os.path.join(JAVA_DIR, 'pom.xml'),
-                                    '-Dskein.version=%s' % VERSION,
-                                    '--batch-mode', 'package'])
+            code = subprocess.call(['./gradlew.bat', 'build',
+                                    '-Dskein.version=%s' % VERSION])
         except OSError as exc:
             if exc.errno == errno.ENOENT:
-                self.warn("Building Skein requires Maven, which wasn't found "
+                self.warn("Building Skein requires gradle, which wasn't found "
                           "in your environment. For information on setting "
                           "up a build environment for Skein see "
                           "https://jcristharif.com/skein/develop.html.")
